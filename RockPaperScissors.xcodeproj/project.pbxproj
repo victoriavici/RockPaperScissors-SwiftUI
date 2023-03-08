@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		CAD5F19D29B8698A006F31DF /* RockPaperScissorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD5F19C29B8698A006F31DF /* RockPaperScissorsApp.swift */; };
-		CAD5F19F29B8698A006F31DF /* RockPaperScissorsDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD5F19E29B8698A006F31DF /* RockPaperScissorsDocument.swift */; };
 		CAD5F1A129B8698A006F31DF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD5F1A029B8698A006F31DF /* ContentView.swift */; };
 		CAD5F1A329B8698E006F31DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAD5F1A229B8698E006F31DF /* Assets.xcassets */; };
 		CAD5F1A629B8698E006F31DF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAD5F1A529B8698E006F31DF /* Preview Assets.xcassets */; };
@@ -17,7 +16,6 @@
 /* Begin PBXFileReference section */
 		CAD5F19929B8698A006F31DF /* RockPaperScissors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RockPaperScissors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAD5F19C29B8698A006F31DF /* RockPaperScissorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsApp.swift; sourceTree = "<group>"; };
-		CAD5F19E29B8698A006F31DF /* RockPaperScissorsDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsDocument.swift; sourceTree = "<group>"; };
 		CAD5F1A029B8698A006F31DF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CAD5F1A229B8698E006F31DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CAD5F1A529B8698E006F31DF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -55,7 +53,6 @@
 			isa = PBXGroup;
 			children = (
 				CAD5F19C29B8698A006F31DF /* RockPaperScissorsApp.swift */,
-				CAD5F19E29B8698A006F31DF /* RockPaperScissorsDocument.swift */,
 				CAD5F1A029B8698A006F31DF /* ContentView.swift */,
 				CAD5F1A229B8698E006F31DF /* Assets.xcassets */,
 				CAD5F1A729B8698E006F31DF /* Info.plist */,
@@ -143,7 +140,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAD5F19D29B8698A006F31DF /* RockPaperScissorsApp.swift in Sources */,
-				CAD5F19F29B8698A006F31DF /* RockPaperScissorsDocument.swift in Sources */,
 				CAD5F1A129B8698A006F31DF /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,6 +279,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -314,6 +311,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
