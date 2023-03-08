@@ -9,39 +9,31 @@ import SwiftUI
 
 struct ContentView: View {
 
-    @State var myChoice: Choice = .rock
-    @State var opponentsChoice: Choice = .paper
-    @State var opponentsChoiceIsShown = false
-    @State var showingResult = false
-    
-    var randomChoice: Choice {
-        let choices: [Choice] = [.rock, .scissors, .paper]
-        let randomIndex = Int.random(in: 0...2)
-        return choices[randomIndex]
-    }
+    @ObservedObject private var viewModel = ViewModel()
     
     var body: some View {
         
-        GeometryReader { geo in
+        GeometryReader { proxy in
             ZStack {
                 VStack {
                     ZStack {
                         Rectangle()
-                            .frame(height: geo.size.height  / 2)
+                            .frame(height: proxy.size.height  / 2)
                             .foregroundColor(.black)
-                        if opponentsChoiceIsShown {
-                            Image(systemName: opponentsChoice.rawValue)
+                        if viewModel.opponentsChoiceIsShown {
+                            Image(systemName: viewModel.opponentsChoice.rawValue)
                                 .resizable()
                                 .scaledToFit()
                                 .foregroundColor(.white)
-                                .frame(height: geo.size.height / 3)
+                                .frame(height: proxy.size.height / 3)
                                 .padding()
                         } else {
                             Button {
-                                opponentsChoice = randomChoice
-                                opponentsChoiceIsShown = true
+                                viewModel.setOpponentChoice()
+                                viewModel.setOpponentShown()
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                                        withAnimation(.spring()) {   showingResult = true
+                                    withAnimation(.spring()) {
+                                        viewModel.setShowingResult()
                                     }
                                 }
                                     
@@ -53,80 +45,62 @@ struct ContentView: View {
                             }
                         }
                     }
-                    ZStack {
-                        Rectangle()
-                            .frame(height: geo.size.height / 2)
-                            .foregroundColor(.white)
+                        
                         VStack {
-                            Image(systemName: myChoice.rawValue)
+                            Image(systemName: viewModel.myChoice.rawValue)
                                 .resizable()
                                 .scaledToFit()
                                 .foregroundColor(.black)
-                                .frame(height: geo.size.height / 3)
+                                .frame(height: proxy.size.height / 3)
                                 .padding()
                             
                             HStack(spacing: 40) {
-                                CustomButton(choice: .rock, myChoice: $myChoice)
-                                CustomButton(choice: .paper, myChoice: $myChoice)
-                                CustomButton(choice: .scissors, myChoice: $myChoice)
+                                CustomButton(choice: .rock, myChoice: $viewModel.myChoice, canClick: $viewModel.opponentsChoiceIsShown,
+                                             isPicked: .init(get: {
+                                    viewModel.myChoice == .rock
+                                }, set: { _ in
+                                })) {
+                                    viewModel.myChoice = .rock
+                                }
+                                CustomButton(choice: .paper, myChoice: $viewModel.myChoice, canClick: $viewModel.opponentsChoiceIsShown,
+                                             isPicked: .init(get: {
+                                    viewModel.myChoice == .paper
+                                }, set: { _ in
+                                })) {
+                                    viewModel.myChoice = .paper
+                                }
+                                CustomButton(choice: .scissors, myChoice: $viewModel.myChoice, canClick: $viewModel.opponentsChoiceIsShown,
+                                             isPicked: .init(get: {
+                                    viewModel.myChoice == .scissors
+                                }, set: { _ in
+                                })) {
+                                    viewModel.myChoice = .scissors
+                                }
                             }
                         }
-                    }
+                        .background(
+                            Rectangle()
+                                .frame(height: proxy.size.height / 2)
+                                .foregroundColor(.white),
+                            alignment: .top
+                        )
                 }
-                Text(getResult().rawValue.uppercased())
+                Text(viewModel.getResult(opponentsChoice: viewModel.opponentsChoice, myChoice: viewModel.myChoice).rawValue.uppercased())
                             .font(.system(size: 75, weight: .bold))
                             .padding(50)
                             .foregroundColor(.white)
                             .background(Color.black)
                             .border(Color.white, width: 3)
                             .cornerRadius(3)
-                            .offset(x: showingResult ? 0 : -400)
+                            .offset(x: viewModel.showingResult ? 0 : -400)
                             .onTapGesture {
                                 withAnimation(.spring()) {
-                                    showingResult = false
+                                    viewModel.setShowingResult()
                                 }
-                                opponentsChoiceIsShown = false
-                            
-                        
-
+                                viewModel.setOpponentShown()
                 }
             }
         }.edgesIgnoringSafeArea(.all)
-    }
-    func getResult() -> Result {
-        switch opponentsChoice {
-            
-        case .rock:
-            switch myChoice {
-                
-            case .rock:
-                return .draw
-            case .scissors:
-                return .loose
-            case .paper:
-                return .win
-            }
-        case .scissors:
-            switch myChoice {
-                
-            case .rock:
-                return .win
-            case .scissors:
-                return .draw
-            case .paper:
-                return .loose
-            }
-        case .paper:
-            switch myChoice {
-                
-            case .rock:
-                return .loose
-            case .scissors:
-                return .win
-            case .paper:
-                return .draw
-            }
-        }
     }
 }
 
@@ -136,35 +110,4 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-enum Choice: String{
-    case rock = "octagon.fill"
-    case scissors = "scissors"
-    case paper = "newspaper.fill"
-}
 
-enum Result: String {
-    case win
-    case loose
-    case draw
-}
-
-struct CustomButton: View {
-    let choice: Choice
-    @Binding var myChoice: Choice
-    var isPicked: Bool {
-        return choice == myChoice
-    }
-    
-    var body: some View {
-        Button {
-            print(choice)
-            myChoice = choice
-        } label: {
-            Image(systemName: choice.rawValue)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 50)
-                .foregroundColor(isPicked ? .blue : .black)
-        }
-    }
-}
